@@ -1,10 +1,12 @@
 package it.flowzz.spring.api.model;
 
 
+import it.flowzz.spring.api.dto.AccountDto;
 import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -21,7 +23,15 @@ public class Account {
     @Column(name = "id",length = 36)
     private UUID id;
     @NonNull private String owner;
+    private AccountType type = AccountType.PRIVATE;
     private int balance;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "accountId")
+    private Set<AccountDto> allowedUsers;
 
+
+    public enum AccountType{
+        BUSINESS,
+        PRIVATE
+    }
 }
