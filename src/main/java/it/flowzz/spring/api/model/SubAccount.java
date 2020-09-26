@@ -33,6 +33,7 @@ public class SubAccount {
     @Type(type="org.hibernate.type.UUIDCharType")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private UUID accountId;
+    @Column(updatable = false)
     private String name;
 
 
