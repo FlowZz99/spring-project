@@ -1,7 +1,6 @@
 package it.flowzz.spring.api.model;
 
 
-import it.flowzz.spring.api.dto.AccountDto;
 import lombok.*;
 import org.hibernate.annotations.Type;
 
@@ -26,8 +25,8 @@ public class Account {
     private AccountType type = AccountType.PRIVATE;
     private int balance;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "accountId")
-    private Set<AccountDto> allowedUsers;
+    @OneToMany(mappedBy = "accountId", cascade = CascadeType.ALL)
+    private Set<SubAccount> allowedUsers;
 
 
     public enum AccountType{

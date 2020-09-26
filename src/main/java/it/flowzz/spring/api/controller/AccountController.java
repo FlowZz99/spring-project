@@ -1,6 +1,8 @@
 package it.flowzz.spring.api.controller;
 
 import it.flowzz.spring.api.model.Account;
+import it.flowzz.spring.api.model.SubAccount;
+import it.flowzz.spring.api.model.ids.SubAccountId;
 import it.flowzz.spring.api.service.AccountServiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,7 @@ public class AccountController {
 
     @GetMapping(path = "{id}")
     public Account getAccountById(@PathVariable("id") UUID id) { return accountServiceProvider.getAccountById(id).orElse(null); }
+
     @PostMapping
     public void addAccount(@RequestBody Account account) {
         accountServiceProvider.addAccount(account);
@@ -40,5 +43,17 @@ public class AccountController {
     public void updateAccountById(@PathVariable("id") UUID id, @RequestBody Account account){
         accountServiceProvider.updateAccountById(id, account);
     }
+
+    @PostMapping(path = "/subaccount")
+    public void addSubAccount(@RequestBody SubAccount subAccount) {
+        accountServiceProvider.addSubAccount(subAccount);
+    }
+
+
+    @DeleteMapping(path = "/subaccount")
+    public void deleteSubAccountById(@RequestBody SubAccountId subAccountId) {
+        accountServiceProvider.deleteSubAccountById(subAccountId.getAccountId(), subAccountId.getUuid());
+    }
+
 
 }
